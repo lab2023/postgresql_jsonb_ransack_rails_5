@@ -1,0 +1,15 @@
+<% if fields.present? %>
+    User fields :
+    <ul>
+      <% fields.keys.each do |key| %>
+          <li>
+            <%= fields[key]['name'] %>
+            <ul>
+              <li>Is sort exists: <%= fields[key]['is_sort_exist'] %></li>
+              <li>Is filter exists: <%= fields[key]['is_filter_exist'] %></li>
+              <li>Type: <%= fields[key]['type'] %></li>
+            </ul>
+          </li>
+      <% end %>
+    </ul>
+<% end %>
