@@ -1,36 +1,65 @@
-<%= link_to 'First User', welcome_index_one_path %>
-<%= link_to 'Second User', welcome_index_second_path %>
-<br/>
-<br/>
-User fields :
-<%= @fields %>
+<%= link_to 'Welcome', welcome_index_path %>
 <br/>
 <br/>
 <% if @fields.present? %>
-  Sort by :
-  <% @fields.keys.each do |key| %>
-      <%= sort_link(@search, "metadata_#{key}", @fields[key]['name'], default_order: :desc) if @fields[key]['is_sort_exist'] %>
+  User fields :
+  <ul>
+    <% @fields.keys.each do |key| %>
+        <li>
+          <%= @fields[key]['name'] %>
+          <ul>
+            <li>Is sort exists: <%= @fields[key]['is_sort_exist'] %></li>
+            <li>Is filter exists: <%= @fields[key]['is_filter_exist'] %></li>
+            <li>Type: <%= @fields[key]['type'] %></li>
+          </ul>
+        </li>
+    <% end %>
+  </ul>
+<% end %>
+<%= link_to 'Edit', edit_user_path(@user) %>
+<br/>
+<br/>
+<% if @fields.present? %>
+  Contains :
+  <%= search_form_for @search, url: user_path(@user) do |f| %>
+    <% @fields.keys.each do |key| %>
+      <% if @fields[key]['is_filter_exist'] %>
+        <%= f.label @fields[key]['name'] %>
+        <%= f.search_field "metadata_#{key}_cont" %>
+      <% end %>
+    <% end %>
+    <%= f.submit %>
   <% end %>
   <br/>
-  <br/>
-  Contains :
-  <% url = (params[:action] == 'index_one' ? welcome_index_one_path : welcome_index_second_path) %>
-    <%= search_form_for @search, url: url do |f| %>
+<% end %>
+<hr/>
+<table>
+  <tr>
+    <th><%= sort_link(@search, :id, 'ID', default_order: :desc) %></th>
+    <% if @fields.present? %>
       <% @fields.keys.each do |key| %>
-        <% if @fields[key]['is_filter_exist'] %>
-          <%= f.label @fields[key]['name'] %>
-          <%= f.search_field "metadata_#{key}_cont" %>
+          <th>
+            <%  if @fields[key]['is_sort_exist'] %>
+              <%= sort_link(@search, "metadata_#{key}", @fields[key]['name'], default_order: :desc) %>
+            <% else %>
+                <%= @fields[key]['name'] %>
+            <% end %>
+          </th>
+      <% end %>
+    <% end %>
+  </tr>
+  <% @people.each do |d| %>
+    <tr>
+      <td><%= d.id %></td>
+      <% if @fields.present? %>
+        <% @fields.keys.each do |key| %>
+            <td><%= d.metadata[key] %></td>
         <% end %>
       <% end %>
-      <%= f.submit %>
-    <% end %>
-  <br/>
-<% end %>
-<% @people.each do |d| %>
-    <%= d.id %>
-    <%= d.metadata %>
-    <br/>
-<% end %>
+    </tr>
+  <% end %>
+
+</table>
 <hr/>
 People count:
 <%= @people.count %>
