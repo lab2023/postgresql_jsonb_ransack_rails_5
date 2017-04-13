@@ -1,9 +1,10 @@
+User fields :
 <% if fields.present? %>
-    User fields :
     <ul>
       <% fields.keys.each do |key| %>
           <li>
             <%= fields[key]['name'] %>
+            <%= link_to 'Delete', delete_user_fields_path(user, resource, key), method: :delete %>
             <ul>
               <li>Is sort exists: <%= fields[key]['is_sort_exist'] %></li>
               <li>Is filter exists: <%= fields[key]['is_filter_exist'] %></li>
@@ -13,3 +14,4 @@
       <% end %>
     </ul>
 <% end %>
+<%= link_to 'Add New', new_user_fields_path(user, resource) %>

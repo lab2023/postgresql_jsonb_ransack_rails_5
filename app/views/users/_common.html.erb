@@ -1,8 +1,7 @@
 <%= link_to 'Welcome', welcome_index_path %>
 <br/>
 <br/>
-<%= render 'users/fields', fields: @fields %>
-<%= link_to 'Edit', edit_user_path(@user) %>
+<%= render 'users/fields', user: @user, fields: @fields, resource: 'person' %>
 <br/>
 <br/>
 <% if @fields.present? %>
@@ -22,6 +21,7 @@
 <table>
   <tr>
     <th><%= sort_link(@search, :id, 'ID', default_order: :desc) %></th>
+    <th><%= sort_link(@search, :name, 'Name', default_order: :desc) %></th>
     <% if @fields.present? %>
       <% @fields.keys.each do |key| %>
           <th>
@@ -37,6 +37,7 @@
   <% @people.each do |d| %>
     <tr>
       <td><%= d.id %></td>
+      <td><%= d.name %></td>
       <% if @fields.present? %>
         <% @fields.keys.each do |key| %>
             <td><%= d.metadata[key] %></td>

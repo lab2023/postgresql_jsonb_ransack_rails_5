@@ -1,0 +1,41 @@
+<h1>
+  <%= link_to @user.name, user_path(@user) %>
+  <%= @resource %>
+  Fields Add
+</h1>
+
+<% if defined? @message %>
+  <%= @message %>
+<% end %>
+
+<%= form_for :field, url: create_user_fields_path(@user, @resource) do |f| %>
+
+    <p>
+      <%= f.label :key %><br>
+      <%= f.text_field :key %>
+    </p>
+
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :type %><br>
+      <%= f.select :type, collection: [['Integer', 'integer'], ['String', 'string']] %>
+    </p>
+
+    <p>
+      <%= f.label :is_filter_exist %><br>
+      <%= f.text_field :is_filter_exist, type: :checkbox %>
+    </p>
+
+    <p>
+      <%= f.label :is_sort_exist %><br>
+      <%= f.text_field :is_sort_exist, type: :checkbox %>
+    </p>
+
+    <p>
+      <%= f.submit %>
+    </p>
+<% end %>
+
