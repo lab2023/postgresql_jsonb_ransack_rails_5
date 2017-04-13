@@ -1,0 +1,23 @@
+connection: &connection
+  adapter: postgresql
+  encoding: UTF-8
+  host: localhost
+  pool: 5
+  timeout: 5000
+  port: 5432
+
+development:
+  <<: *connection
+  database: postgresql_jsonb_ransack_development
+
+staging:
+  <<: *connection
+  database: postgresql_jsonb_ransack_staging
+
+production:
+  <<: *connection
+  database: postgresql_jsonb_ransack_production
+
+test:
+  <<: *connection
+  database: postgresql_jsonb_ransack_test

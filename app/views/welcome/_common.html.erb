@@ -1,0 +1,36 @@
+<%= link_to 'First User', welcome_index_one_path %>
+<%= link_to 'Second User', welcome_index_second_path %>
+<br/>
+<br/>
+User fields :
+<%= @fields %>
+<br/>
+<br/>
+<% if @fields.present? %>
+  Sort by :
+  <% @fields.keys.each do |key| %>
+      <%= sort_link(@search, "metadata_#{key}", @fields[key]['name'], default_order: :desc) if @fields[key]['is_sort_exist'] %>
+  <% end %>
+  <br/>
+  <br/>
+  Contains :
+  <% url = (params[:action] == 'index_one' ? welcome_index_one_path : welcome_index_second_path) %>
+    <%= search_form_for @search, url: url do |f| %>
+      <% @fields.keys.each do |key| %>
+        <% if @fields[key]['is_filter_exist'] %>
+          <%= f.label @fields[key]['name'] %>
+          <%= f.search_field "metadata_#{key}_cont" %>
+        <% end %>
+        <%= f.submit %>
+      <% end %>
+    <% end %>
+  <br/>
+<% end %>
+<% @people.each do |d| %>
+    <%= d.id %>
+    <%= d.metadata %>
+    <br/>
+<% end %>
+<hr/>
+People count:
+<%= @people.count %>
