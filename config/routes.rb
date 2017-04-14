@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get ':resource/:key/edit', to: 'fields#edit', as: :edit, on: :collection
       put ':resource/:key', to: 'fields#update', as: :update, on: :collection
     end
-    resources :people, except: [:index, :destroy]
+    resources :people, except: [:index]
   end
 
 end

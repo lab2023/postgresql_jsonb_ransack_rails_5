@@ -7,20 +7,20 @@
   </div>
   <div class="panel-body">
     <% if fields.present? %>
-        <ul>
-          <% fields.keys.each do |key| %>
-              <li>
-                <%= fields[key]['name'] %>
-                <%= link_to 'Delete', delete_user_fields_path(user, resource, key), method: :delete %>
-                <%= link_to 'Edit', edit_user_fields_path(user, resource, key) %>
-                <ul>
-                  <li>Type: <%= fields[key]['type'] %></li>
-                  <li>Show filter? : <%= fields[key]['is_filter_exist'] %></li>
-                  <li>Show sort link? : <%= fields[key]['is_sort_exist'] %></li>
-                </ul>
-              </li>
-          <% end %>
-        </ul>
+            <% fields.keys.each do |key| %>
+                <span class="well" style="float: left; margin: 0px 5px 10px; padding: 10px;">
+                  <label><%= fields[key]['name'] %></label>
+                  <ul>
+                    <li>Type: <%= fields[key]['type'] %></li>
+                    <li>Filter : <%= fields[key]['is_filter_exist'] ? 'Yes' : 'No' %></li>
+                    <li>Sort link : <%= fields[key]['is_sort_exist'] ? 'Yes' : 'No' %></li>
+                  </ul>
+                  <%= link_to 'Delete', delete_user_fields_path(user, resource, key), method: :delete %>
+                  <%= link_to 'Edit', edit_user_fields_path(user, resource, key) %>
+                </span>
+            <% end %>
+    <% else %>
+        <%= link_to 'Add new field', new_user_fields_path(user, resource) %>
     <% end %>
   </div>
 </div>

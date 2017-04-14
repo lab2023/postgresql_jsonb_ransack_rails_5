@@ -1,7 +1,8 @@
+<%= render 'shared/user_link'%>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3>
-      <%= link_to @user.name, user_path(@user) %>
       Person Add
     </h3>
   </div>
@@ -14,6 +15,7 @@
 
         <div class="form-group">
           <%= f.submit class: 'btn btn-primary'%>
+          <%= link_to 'Back', :back, class: 'btn btn-default'%>
         </div>
     <% end %>
   </div>

@@ -1,14 +1,9 @@
-<h2 class="text-center">
-  <%= @user.name %>
-  <%= link_to 'Edit', edit_user_path(@user) %>
-</h2>
+<%= render 'shared/user_link'%>
+
+<%= render 'users/fields', user: @user, fields: @fields, resource: 'person' %>
 
 <div class="row">
-  <div class="col-lg-3">
-    <%= render 'users/fields', user: @user, fields: @fields, resource: 'person' %>
-  </div>
-
-  <div class="col-lg-9">
+  <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         People List
@@ -46,19 +41,24 @@
                     </th>
                 <% end %>
             <% end %>
+            <th>Actions</th>
           </tr>
-          <% @people.each do |d| %>
+          <% @people.each do |person| %>
               <tr>
-                <td><%= d.id %></td>
-                <td><%= d.name %></td>
+                <td><%= person.id %></td>
+                <td><%= person.name %></td>
                 <% if @fields.present? %>
                     <% @fields.keys.each do |key| %>
-                        <td><%= d.metadata[key] %></td>
+                        <td><%= person.metadata[key] %></td>
                     <% end %>
                 <% end %>
+                <td>
+                  <%= link_to 'Show', user_person_path(@user, person) %>
+                  <%= link_to 'Edit', edit_user_person_path(@user, person) %>
+                  <%= link_to 'Delete', user_person_path(@user, person), method: :delete %>
+                </td>
               </tr>
           <% end %>
-
         </table>
       </div>
       <div class="panel-footer">

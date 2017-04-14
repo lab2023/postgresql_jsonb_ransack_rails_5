@@ -1,7 +1,8 @@
+<%= render 'shared/user_link'%>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3>
-      <%= link_to @user.name, user_path(@user) %>
       Person Detail
     </h3>
   </div>
@@ -16,6 +17,7 @@
     <% end %>
     <hr/>
     <%= link_to 'Edit', edit_user_person_path(@user, @person) %>
+    <%= link_to 'Delete', user_person_path(@user, @person), method: :delete %>
   </div>
 </div>
 

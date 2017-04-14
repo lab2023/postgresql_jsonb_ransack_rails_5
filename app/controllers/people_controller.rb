@@ -2,7 +2,7 @@ class PeopleController < ApplicationController
 
   before_action :set_user
   before_action :set_fields
-  before_action :set_person, only: [:show, :edit, :update]
+  before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   def new
     @person = Person.new
@@ -35,6 +35,12 @@ class PeopleController < ApplicationController
   end
 
   def show
+  end
+
+  def destroy
+    @person.destroy
+    flash[:success] = 'Person destroyed successfully'
+    redirect_to @user
   end
 
   private
