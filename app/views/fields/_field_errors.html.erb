@@ -1,0 +1,20 @@
+<% if @field.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h2 class="panel-title">
+          <%= pluralize(@field.errors.count, 'error') %>
+          prohiited this field from being saved:
+        </h2>
+      </div>
+
+      <div class="panel-body">
+        <ul>
+          <% @field.errors.full_messages.each do |message| %>
+              <li>
+                <%= message %>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+<% end %>

@@ -3,23 +3,23 @@
     <h3>
       <%= link_to @user.name, user_path(@user) %>
       <%= @resource %>
-      Fields Add
+      Fields Edit
     </h3>
   </div>
   <div class="panel-body">
 
-    <%= form_for @field, url: create_user_fields_path(@user, @resource) do |f| %>
+    <%= form_for @field, url: update_user_fields_path(@user, @resource, @key), method: :put do |f| %>
         <%= render 'field_errors'%>
 
         <div class="form-group">
           <%= f.label :key %>
-          <%= f.text_field :key, class: 'form-control' %>
+          <%= f.text_field :key, class: 'form-control', disabled: :disabled  %>
         </div>
 
         <%= render 'common_fields', f: f %>
 
         <div class="form-group">
-          <%= f.submit class: 'btn btn-primary'%>
+          <%= f.submit class: 'btn btn-primary', value: 'Update Field'%>
         </div>
     <% end %>
   </div>

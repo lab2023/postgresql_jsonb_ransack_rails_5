@@ -12,10 +12,11 @@
               <li>
                 <%= fields[key]['name'] %>
                 <%= link_to 'Delete', delete_user_fields_path(user, resource, key), method: :delete %>
+                <%= link_to 'Edit', edit_user_fields_path(user, resource, key) %>
                 <ul>
-                  <li>Show sort link? : <%= fields[key]['is_sort_exist'] %></li>
-                  <li>Show filter? : <%= fields[key]['is_filter_exist'] %></li>
                   <li>Type: <%= fields[key]['type'] %></li>
+                  <li>Show filter? : <%= fields[key]['is_filter_exist'] %></li>
+                  <li>Show sort link? : <%= fields[key]['is_sort_exist'] %></li>
                 </ul>
               </li>
           <% end %>

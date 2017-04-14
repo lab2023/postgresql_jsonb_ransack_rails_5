@@ -11,8 +11,9 @@ class FieldsController < ApplicationController
   def create
     @field = Field.new(params_field)
     @field.key_parameterize
-    Rails.logger.info @field.as_json.inspect.red
-    if @field.valid?
+    @field.valid?
+    @field.validate_key
+    unless @field.errors.any?
       @user.fields[@resource][@field.key] = @field.as_json
       @user.save
       flash[:success] = 'Field added successfully'
@@ -24,9 +25,23 @@ class FieldsController < ApplicationController
   end
 
   def edit
+    @field = Field.new(@user.fields[@resource][@key])
+    @field.key = @key
   end
 
   def update
+    @field = Field.new(params_field)
+    if @field.valid?
+      @user.fields[@resource][@key] = @field.as_json
+      @user.save
+      flash[:success] = 'Field updated successfully'
+      redirect_to @user
+    else
+      @field.errors.delete(:key)
+      flash.now[:danger] = 'Invalid field parameters!'
+      @field.key = @key
+      render :edit
+    end
   end
 
   def destroy
