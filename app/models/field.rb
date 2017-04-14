@@ -6,7 +6,7 @@ class Field
   attr_accessor :name, :type, :key, :is_filter_exist, :is_sort_exist
 
   validates_presence_of :name, :type
-  validates_inclusion_of :type, in: %w(string integer)
+  validates_inclusion_of :type, in: %w(number text)
 
   def initialize(attributes = {})
     self.is_filter_exist = false

@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>
+      <%= link_to @user.name, user_path(@user) %>
+      Person Detail
+    </h3>
+  </div>
+  <div class="panel-body">
+    <strong>Name</strong>: <%= @person.name %>
+    <br/>
+    <strong>Surname</strong>: <%= @person.surname %>
+    <br/>
+    <% @person.metadata.each do |k, v| %>
+      <strong><%= @fields[k]['name'] %></strong>: <%= v %>
+      <br/>
+    <% end %>
+    <hr/>
+    <%= link_to 'Edit', edit_user_person_path(@user, @person) %>
+  </div>
+</div>
+

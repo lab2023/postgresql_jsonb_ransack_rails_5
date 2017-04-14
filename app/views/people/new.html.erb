@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>
+      <%= link_to @user.name, user_path(@user) %>
+      Person Add
+    </h3>
+  </div>
+  <div class="panel-body">
+
+    <%= form_for @person, url: user_people_path(@user) do |f| %>
+        <%= render 'field_errors'%>
+
+        <%= render 'common_fields', f: f %>
+
+        <div class="form-group">
+          <%= f.submit class: 'btn btn-primary'%>
+        </div>
+    <% end %>
+  </div>
+</div>
+
