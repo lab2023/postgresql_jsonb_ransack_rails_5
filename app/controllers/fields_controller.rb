@@ -5,18 +5,20 @@ class FieldsController < ApplicationController
   before_action :set_key, only: [:edit, :update, :destroy]
 
   def new
+    @field = Field.new
   end
 
   def create
-    field = set_field_hash
-    key = params_field_key[:key]
-    if key.present? && field[:name].present? && field[:type].present?
-      key = key.parameterize.underscore
-      @user.fields[@resource][key] = field
+    @field = Field.new(params_field)
+    @field.key_parameterize
+    Rails.logger.info @field.as_json.inspect.red
+    if @field.valid?
+      @user.fields[@resource][@field.key] = @field.as_json
       @user.save
+      flash[:success] = 'Field added successfully'
       redirect_to @user
     else
-      @message = 'Invalid field parameters!'
+      flash.now[:danger] = 'Invalid field parameters!'
       render :new
     end
   end
@@ -36,11 +38,7 @@ class FieldsController < ApplicationController
   private
 
     def params_field
-      params.require(:field).permit(:name, :type, :is_filter_exist, :is_sort_exist)
-    end
-
-    def params_field_key
-      params.require(:field).permit(:key)
+      params.require(:field).permit(:key, :name, :type, :is_filter_exist, :is_sort_exist)
     end
 
     def set_user
@@ -55,18 +53,4 @@ class FieldsController < ApplicationController
       @key = params[:key]
     end
 
-    def set_field_hash
-      field = {
-          name: nil,
-          type: nil,
-          is_filter_exist: false,
-          is_sort_exist: false
-      }
-      parameters = params_field
-      field[:name] = parameters[:name]
-      field[:type] = parameters[:type]
-      field[:is_filter_exist] = parameters[:is_filter_exist] == 'on'
-      field[:is_sort_exist] = parameters[:is_sort_exist] == 'on'
-      field
-    end
 end

@@ -1,16 +1,22 @@
-<h1>
-  <%= @user.name %>
-  Edit
-</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>
+      <%= @user.name %>
+      Edit
+    </h3>
+  </div>
+  <div class="panel-body">
+    <%= form_for @user do |f| %>
 
-<%= form_for @user do |f| %>
-    <p>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </p>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control'  %>
+      </div>
 
-    <p>
-      <%= f.submit %>
-    </p>
-<% end %>
+      <div class="form-group">
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
 
+    <% end %>
+  </div>
+</div>

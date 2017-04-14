@@ -1,41 +1,69 @@
-<h1>
-  <%= link_to @user.name, user_path(@user) %>
-  <%= @resource %>
-  Fields Add
-</h1>
 
-<% if defined? @message %>
-  <%= @message %>
-<% end %>
 
-<%= form_for :field, url: create_user_fields_path(@user, @resource) do |f| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>
+      <%= link_to @user.name, user_path(@user) %>
+      <%= @resource %>
+      Fields Add
+    </h3>
+  </div>
+  <div class="panel-body">
 
-    <p>
-      <%= f.label :key %><br>
-      <%= f.text_field :key %>
-    </p>
+    <%= form_for @field, url: create_user_fields_path(@user, @resource) do |f| %>
+        <% if @field.errors.any? %>
+            <div class="panel panel-danger">
+              <div class="panel-heading">
+                <h2 class="panel-title">
+                  <%= pluralize(@field.errors.count, 'error') %>
+                  prohiited this field from being saved:
+                </h2>
+              </div>
 
-    <p>
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </p>
-    <p>
-      <%= f.label :type %><br>
-      <%= f.select :type, collection: [['Integer', 'integer'], ['String', 'string']] %>
-    </p>
+              <div class="panel-body">
+                <ul>
+                  <% @field.errors.full_messages.each do |message| %>
+                      <li>
+                        <%= message %>
+                      </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+        <% end %>
 
-    <p>
-      <%= f.label :is_filter_exist %><br>
-      <%= f.text_field :is_filter_exist, type: :checkbox %>
-    </p>
+        <div class="form-group">
+          <%= f.label :key %>
+          <%= f.text_field :key, class: 'form-control' %>
+        </div>
 
-    <p>
-      <%= f.label :is_sort_exist %><br>
-      <%= f.text_field :is_sort_exist, type: :checkbox %>
-    </p>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :type %>
+          <%= f.select :type, [['Integer', 'integer'], ['String', 'string']],  {}, { class: 'form-control'} %>
+        </div>
 
-    <p>
-      <%= f.submit %>
-    </p>
-<% end %>
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :is_filter_exist %>
+            Show filter?
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :is_sort_exist %>
+            Show sort link?
+          </label>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit class: 'btn btn-primary'%>
+        </div>
+    <% end %>
+  </div>
+</div>
 

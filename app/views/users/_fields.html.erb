@@ -1,17 +1,25 @@
-User fields :
-<% if fields.present? %>
-    <ul>
-      <% fields.keys.each do |key| %>
-          <li>
-            <%= fields[key]['name'] %>
-            <%= link_to 'Delete', delete_user_fields_path(user, resource, key), method: :delete %>
-            <ul>
-              <li>Is sort exists: <%= fields[key]['is_sort_exist'] %></li>
-              <li>Is filter exists: <%= fields[key]['is_filter_exist'] %></li>
-              <li>Type: <%= fields[key]['type'] %></li>
-            </ul>
-          </li>
-      <% end %>
-    </ul>
-<% end %>
-<%= link_to 'Add New', new_user_fields_path(user, resource) %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    User fields
+    <div class="pull-right">
+      <%= link_to 'New', new_user_fields_path(user, resource) %>
+    </div>
+  </div>
+  <div class="panel-body">
+    <% if fields.present? %>
+        <ul>
+          <% fields.keys.each do |key| %>
+              <li>
+                <%= fields[key]['name'] %>
+                <%= link_to 'Delete', delete_user_fields_path(user, resource, key), method: :delete %>
+                <ul>
+                  <li>Show sort link? : <%= fields[key]['is_sort_exist'] %></li>
+                  <li>Show filter? : <%= fields[key]['is_filter_exist'] %></li>
+                  <li>Type: <%= fields[key]['type'] %></li>
+                </ul>
+              </li>
+          <% end %>
+        </ul>
+    <% end %>
+  </div>
+</div>

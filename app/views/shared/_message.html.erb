@@ -1,0 +1,5 @@
+<% flash.each do |key, message| %>
+  <div class="text-center alert alert-<%= key.in?(%w(notice success))  ? 'success' : 'danger' %>">
+    <%= message %>
+  </div>
+<% end %>
