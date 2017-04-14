@@ -47,6 +47,7 @@ class FieldsController < ApplicationController
   def destroy
     @user.fields[@resource].delete(@key) if @user.fields[@resource].present?
     @user.save
+    flash[:success] = 'Field destroyed successfully'
     redirect_to @user
   end
 
