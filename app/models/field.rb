@@ -1,7 +1,6 @@
 class Field
   include ActiveModel::Validations
   include ActiveModel::Conversion
-  extend ActiveModel::Naming
 
   attr_accessor :name, :type, :key, :is_filter_exist, :is_sort_exist
 
